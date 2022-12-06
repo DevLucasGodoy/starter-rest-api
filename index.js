@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const db = require('cyclic-dynamodb')
+const Produto = require('./models/Produto')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -60,12 +61,12 @@ app.get('/:col', async (req, res) => {
   res.json(items).end()
 })
 
-// Catch all handler for all other request.
-app.use('*', (req, res) => {
-  res.json({ msg: 'no route handler found' }).end()
-})
+// // Catch all handler for all other request.
+// app.use('*', (req, res) => {
+//   res.json({ msg: 'no route handler found' }).end()
+// })
 
-app.get('/produtos_api', (req, res) => {
+app.get('/', (req, res) => {
   Produto.findAll().then((valores)=>{
     return res.json(valores) 
 }).catch((err)=>{
