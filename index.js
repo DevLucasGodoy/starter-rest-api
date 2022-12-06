@@ -65,8 +65,16 @@ app.use('*', (req, res) => {
   res.json({ msg: 'no route handler found' }).end()
 })
 
+app.get('/produtos_api', (req, res) => {
+  Produto.findAll().then((valores)=>{
+    return res.json(valores) 
+}).catch((err)=>{
+    console.log(`Houve um problema: ${err}`)
+})
+})
+
 // Start the server
 const port = process.env.PORT || 3000
 app.listen(port, () => {
-  console.log(`index.js listening on ${port}`)
+  console.log(`Servidor rodando na porta ${port}`)
 })
